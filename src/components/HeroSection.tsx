@@ -76,7 +76,7 @@ export const HeroSection = () => {
             <div className="relative md:order-2">
               <div className="w-60 h-60 mx-auto rounded-full border-4 border-primary/30 bg-gradient-subtle overflow-hidden">
                 <img 
-                  src="/vinayak-uploads/84b7aed6-504e-437e-bf5f-d69801c8d151.png" 
+                  src="./vinayak-uploads/84b7aed6-504e-437e-bf5f-d69801c8d151.png" 
                   alt="Ramavath Vinayak" 
                   className="w-full h-full object-cover"
                 />
