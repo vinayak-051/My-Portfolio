@@ -1,26 +1,38 @@
 import { useState } from "react";
-import { Mail, Phone, Github, Linkedin, Send, Download, Instagram } from "lucide-react";
+import emailjs from "@emailjs/browser";
+import { Mail, Phone, Github, Linkedin, Send, ExternalLink, Instagram } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "../hooks/use-toast";
 
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+
 export const ContactSection = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: ""
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [sending, setSending] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thanks for reaching out. I'll get back to you soon!",
-    });
-    setFormData({ name: "", email: "", message: "" });
+    setSending(true);
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        { from_name: formData.name, from_email: formData.email, message: formData.message },
+        EMAILJS_PUBLIC_KEY
+      );
+      toast({ title: "Message Sent!", description: "Thanks for reaching out. I'll get back to you soon!" });
+      setFormData({ name: "", email: "", message: "" });
+    } catch {
+      toast({ title: "Failed to send", description: "Something went wrong. Please email me directly.", variant: "destructive" });
+    } finally {
+      setSending(false);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -36,14 +48,14 @@ export const ContactSection = () => {
       label: "Email",
       value: "vinayakramavath1@gmail.com",
       href: "mailto:vinayakramavath1@gmail.com",
-      color: "text-primary"
+      color: "text-sky-500"
     },
     {
       icon: <Phone className="w-5 h-5" />,
       label: "Phone",
       value: "+91 7416979302",
       href: "tel:+917416979302",
-      color: "text-primary"
+      color: "text-emerald-500"
     }
   ];
 
@@ -52,52 +64,49 @@ export const ContactSection = () => {
       icon: <Instagram className="w-6 h-6" />,
       label: "Instagram",
       href: "https://www.instagram.com/_im__vinayak_",
-      color: "text-primary"
+      color: "text-rose-500"
     },
     {
       icon: <Github className="w-6 h-6" />,
       label: "GitHub",
       href: "https://github.com/vinayak-051",
-      color: "text-primary"
+      color: "text-foreground"
     },
     {
       icon: <Linkedin className="w-6 h-6" />,
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/ramavath-vinayak-45463124b",
-      color: "text-primary"
+      color: "text-blue-500"
     }
   ];
 
-  const downloadResume = () => {
-    window.open(
-      "https://drive.google.com/file/d/1j7cKlTplS03MAHbkXAVX6WOs3Sgck85G/view?usp=drivesdk",
-      "_blank"
-    );
+  const openResume = () => {
+    window.open("/Vinayak_Resume_.pdf", "_blank", "noopener,noreferrer");
   };
 
   return (
-    <section id="contact" className="py-20 relative bg-gradient-cyber">
+    <section id="contact" className="py-20 relative">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-2xl md:text-3xl font-heading font-bold text-[#1e3a8a] mb-4">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-slate-600 dark:text-slate-300 mb-4">
             Contact Me
           </h2>
           <div className="w-24 h-1 bg-gradient-primary mx-auto" />
         </div>
 
-        <div className="w-[60%] mx-auto">
+        <div className="w-full max-w-2xl mx-auto">
           <div className="flex flex-col space-y-12">
 
             <div className="space-y-8">
               <div className="space-y-4">
-                <h3 className="text-2xl font-cyber font-bold text-[#1e3a8a] mb-2">
+                <h3 className="text-2xl font-heading font-bold text-slate-600 dark:text-slate-300 mb-2">
                   GET IN TOUCH
                 </h3>
 
                 {contactInfo.map((info, index) => (
                   <Card
                     key={info.label}
-                    className="cyber-card group cursor-pointer"
+                    className="professional-card group cursor-pointer"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <a href={info.href} className="flex items-center space-x-4 p-4">
@@ -118,7 +127,7 @@ export const ContactSection = () => {
               </div>
 
               <div>
-                <h4 className="text-lg font-cyber font-bold text-foreground mb-4">
+                <h4 className="text-lg font-heading font-semibold text-slate-600 dark:text-slate-300 mb-4">
                   SOCIAL LINKS
                 </h4>
                 <div className="flex space-x-4">
@@ -127,7 +136,7 @@ export const ContactSection = () => {
                       key={social.label}
                       variant="outline"
                       size="icon"
-                      className="cyber-btn group"
+                      className="group"
                       onClick={() => window.open(social.href, "_blank")}
                     >
                       <div className={`${social.color} group-hover:animate-bounce`}>
@@ -139,20 +148,20 @@ export const ContactSection = () => {
               </div>
 
               <div>
-                <h4 className="text-lg font-cyber font-bold text-foreground mb-4">
+                <h4 className="text-lg font-heading font-semibold text-slate-600 dark:text-slate-300 mb-4">
                   RESUME
                 </h4>
-                <Button onClick={downloadResume} className="cyber-btn group w-full sm:w-auto">
-                  <Download className="w-4 h-4 mr-2 group-hover:animate-bounce" />
-                  Download Resume
+                <Button onClick={openResume} className="group w-full sm:w-auto">
+                  <ExternalLink className="w-4 h-4 mr-2 group-hover:animate-bounce" />
+                  View Resume
                 </Button>
               </div>
             </div>
 
             <div>
-              <Card className="cyber-card">
+              <Card className="professional-card">
                 <div className="p-6">
-                  <h3 className="text-2xl font-cyber font-bold text-[#1e3a8a] mb-6">
+                  <h3 className="text-2xl font-heading font-bold text-slate-600 dark:text-slate-300 mb-6">
                     SEND MESSAGE
                   </h3>
 
@@ -167,7 +176,7 @@ export const ContactSection = () => {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        className="bg-background border-border focus:border-neon-cyan"
+                        className="bg-background border-border focus:border-primary"
                         placeholder="Your full name"
                       />
                     </div>
@@ -182,7 +191,7 @@ export const ContactSection = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                         required
-                        className="bg-background border-border focus:border-neon-cyan"
+                        className="bg-background border-border focus:border-primary"
                         placeholder="your.email@example.com"
                       />
                     </div>
@@ -197,14 +206,14 @@ export const ContactSection = () => {
                         onChange={handleInputChange}
                         required
                         rows={5}
-                        className="bg-background border-border focus:border-neon-cyan resize-none"
+                        className="bg-background border-border focus:border-primary resize-none"
                         placeholder="Tell me about your project or just say hi!"
                       />
                     </div>
 
-                    <Button type="submit" className="cyber-btn w-full group">
+                    <Button type="submit" className="w-full group" disabled={sending}>
                       <Send className="w-4 h-4 mr-2 group-hover:animate-pulse" />
-                      Send Message
+                      {sending ? "Sending…" : "Send Message"}
                     </Button>
                   </form>
                 </div>

@@ -115,33 +115,6 @@ export default {
 						height: '0'
 					}
 				},
-				// Cyberpunk animations
-				'matrix-rain': {
-					'0%': { transform: 'translateY(-100vh)' },
-					'100%': { transform: 'translateY(100vh)' }
-				},
-				'neon-pulse': {
-					'0%, 100%': { 
-						boxShadow: '0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor',
-						textShadow: '0 0 5px currentColor'
-					},
-					'50%': { 
-						boxShadow: '0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor',
-						textShadow: '0 0 10px currentColor'
-					}
-				},
-				'glitch': {
-					'0%': { transform: 'translate(0)' },
-					'20%': { transform: 'translate(-2px, 2px)' },
-					'40%': { transform: 'translate(-2px, -2px)' },
-					'60%': { transform: 'translate(2px, 2px)' },
-					'80%': { transform: 'translate(2px, -2px)' },
-					'100%': { transform: 'translate(0)' }
-				},
-				'float': {
-					'0%, 100%': { transform: 'translateY(0px)' },
-					'50%': { transform: 'translateY(-10px)' }
-				},
 				'typing': {
 					'from': { width: '0' },
 					'to': { width: '100%' }
@@ -162,10 +135,6 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'matrix-rain': 'matrix-rain 10s linear infinite',
-				'neon-pulse': 'neon-pulse 2s ease-in-out infinite',
-				'glitch': 'glitch 0.3s ease-in-out infinite',
-				'float': 'float 3s ease-in-out infinite',
 				'typing': 'typing 3.5s steps(40, end), blink 0.75s step-end infinite',
 				'slide-up': 'slide-up 0.6s ease-out',
 				'zoom-in': 'zoom-in 0.5s ease-out'

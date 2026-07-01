@@ -70,14 +70,13 @@ export const ThemeToggle = () => {
       variant="outline"
       size="icon"
       onClick={toggleTheme}
-      className="neon-border"
       aria-pressed={theme === "dark"}
       aria-label="Toggle theme"
     >
       {theme === "dark" ? (
-        <Sun className="h-4 w-4 text-neon-cyan" />
+        <Sun className="h-4 w-4 text-foreground" />
       ) : (
-        <Moon className="h-4 w-4 text-neon-purple" />
+        <Moon className="h-4 w-4 text-foreground" />
       )}
       <span className="sr-only">Toggle theme</span>
     </Button>

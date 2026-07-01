@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
@@ -11,6 +10,7 @@ type Project = {
   category: string;
   color?: string;
   status: string;
+  featured?: boolean;
   github?: string;
   demo?: string;
   demoText?: string;
@@ -18,69 +18,94 @@ type Project = {
 };
 
 export const ProjectsSection = () => {
-  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
-
   const projects: Project[] = [
     {
-      id: "zombie-survivor",
-      title: "Zombie Survivor",
+      id: "plantnetra",
+      title: "PlantNetra",
       highlights: [
-        "Implemented A* pathfinding for human and zombie movement.",
-        "Generated random, always-solvable grid environments.",
-        "Built a modular Pygame simulation with real-time visuals."
+        "Designed a custom PlantDiseaseNet with Multi-Scale Atrous Convolution blocks (dilation rates 4–32) and Squeeze-and-Excitation channel attention to classify 22 disease classes across 5 crops (Tomato, Potato, Corn, Apple, Grape).",
+        "Exported the trained PyTorch model to ONNX for cross-platform inference and packaged the app as a hybrid mobile + web app using React, Vite, and Capacitor targeting iOS and Android.",
+        "Delivered per-diagnosis remedy reports covering disease overview, root causes, curative treatments, prevention steps, and recommended agricultural products for each detected condition."
       ],
-      technologies: ["Python", "Pygame", "A* Algorithm"],
-      category: "Artificial Intelligence",
-      color: "text-neon-green",
+      technologies: ["Python", "PyTorch", "ONNX", "React", "Capacitor", "FastAPI"],
+      category: "AI/ML & Mobile",
+      color: "text-emerald-500",
       status: "Completed",
-      github: "https://github.com/vinayak-051/Zombie-Surviver",
-      report: "https://drive.google.com/file/d/1clod1M6TUOWu-EP8vrufekpeJWoM2OPA/view?usp=sharing"
+      github: "https://github.com/vinayak-051/PlantNetra"
+    },
+    {
+      id: "sahayatri",
+      title: "Sahayatri",
+      highlights: [
+        "Built a serverless travel marketplace with React + Supabase, enforcing per-user data isolation through PostgreSQL Row Level Security policies across guides, bookings, and messages.",
+        "Implemented real-time tourist–guide chat via Supabase Realtime, alongside a full booking system, review system, buddy trip planning, and Google OAuth authentication.",
+        "Achieved end-to-end test coverage with Vitest unit tests, ESLint linting, and Playwright E2E tests against a seeded database of 8 guides across 8 Indian cities."
+      ],
+      technologies: ["React", "Supabase", "PostgreSQL", "TypeScript", "Playwright"],
+      category: "Full Stack",
+      color: "text-violet-500",
+      status: "Completed",
+      featured: true,
+      github: "https://github.com/vinayak-051/Sahayatri"
+    },
+    {
+      id: "doctorify",
+      title: "DrOne",
+      highlights: [
+        "Built a modular REST API with FastAPI covering patient management, appointments, real-time queue, medical records, and payments — each as a dedicated router module with clear separation of concerns.",
+        "Implemented JWT authentication and a raw-SQL PostgreSQL schema with role-based access control to secure patient and doctor records at the data layer.",
+        "Designed a patient queue management system alongside an analytics module to surface clinic operational metrics and reduce patient wait times."
+      ],
+      technologies: ["Python", "FastAPI", "PostgreSQL", "React", "JavaScript"],
+      category: "Full Stack",
+      color: "text-sky-500",
+      status: "Completed",
+      github: "https://github.com/vinayak-051/DrOne"
     },
     {
       id: "customer-churn",
       title: "Customer Churn Dashboard",
       highlights: [
-        "Developed a Streamlit app using a Logistic Regression pipeline.",
-        "Added single/batch predictions with threshold and ROI controls.",
-        "Integrated SHAP for global and local model explanations.",
-        "Ensured stable inference via ColumnTransformer preprocessing."
+        "Served a scikit-learn Pipeline (ColumnTransformer → Logistic Regression) as a Streamlit app supporting single-record predictions and CSV batch scoring with automatic schema alignment for missing input columns.",
+        "Built business-facing controls including an adjustable decision threshold for precision/recall trade-offs and an Expected ROI calculator estimating revenue gained vs. retention cost per targeted cohort.",
+        "Integrated SHAP global bar and local waterfall plots for model transparency, exposing top logistic regression coefficients and encoded feature names for non-technical stakeholders."
       ],
-      technologies: ["Python", "Streamlit", "scikit-learn", "SHAP"],
+      technologies: ["Python", "Streamlit", "scikit-learn", "SHAP", "Pandas"],
       category: "ML / Data Science",
-      color: "text-neon-cyan",
+      color: "text-orange-500",
       status: "Completed",
       github: "https://github.com/vinayak-051/Telecom-Customer-Churn",
       demo: "https://predictpulse.streamlit.app/"
     },
     {
+      id: "zombie-survivor",
+      title: "Zombie Survivor",
+      highlights: [
+        "Implemented dual A* agents: the human uses danger-weighted node costs to route away from zombies, while zombies use pure shortest-path A* with a tile-claiming mechanism to prevent positional overlap.",
+        "Guaranteed map solvability on every run through BFS connectivity checks — randomizing human start, safe zone, obstacles, and zombie positions while verifying a valid path exists before simulation begins.",
+        "Designed a modular 5-file architecture (agent, environment, game, visualization, main) with real-time path rendering and a toggle between manual keyboard control and autonomous A* mode."
+      ],
+      technologies: ["Python", "Pygame", "A* Algorithm"],
+      category: "Artificial Intelligence",
+      color: "text-amber-500",
+      status: "Completed",
+      github: "https://github.com/vinayak-051/Zombie-Surviver",
+      report: "https://drive.google.com/file/d/1clod1M6TUOWu-EP8vrufekpeJWoM2OPA/view?usp=sharing"
+    },
+    {
       id: "expense-tracker",
       title: "Expense Tracker",
       highlights: [
-        "Implemented secure JWT authentication with bcrypt hashing.",
-        "Designed category-wise income and expense management pages.",
-        "Built a fully responsive interface for smooth user experience."
+        "Built a MERN stack finance app with JWT authentication, per-user data isolation via userId-scoped MongoDB queries, and bcrypt password hashing across separate income and expense collections.",
+        "Implemented full CRUD for categorized transactions with icon and date support, date-sorted queries, and a one-click Excel export (ExcelJS) of complete transaction history for offline analysis.",
+        "Structured the Express backend across 4 dedicated route modules (auth, expense, income, dashboard) with Mongoose models, JWT middleware, and Multer file upload support."
       ],
-      technologies: ["MongoDB", "Express", "React", "Node.js"],
+      technologies: ["MongoDB", "Express", "React", "Node.js", "ExcelJS"],
       category: "Full Stack",
-      color: "text-neon-orange",
+      color: "text-sky-500",
       status: "Completed",
       github: "https://github.com/vinayak-051/Expense-Tracker",
       demo: "https://expense-tracker-5-uaeq.onrender.com"
-    },
-    {
-      id: "battery-alarm",
-      title: "Battery Overheating Alarm System",
-      highlights: [
-        "Loaded and visualized noisy vs clean temperature signals.",
-        "Applied MA, Median, and Gaussian filters for noise reduction.",
-        "Built threshold-based overheating detection and analysis."
-      ],
-      technologies: ["Python", "Pandas", "Matplotlib"],
-      category: "Signal Processing",
-      color: "text-neon-yellow",
-      status: "Completed",
-      github: "https://github.com/vinayak-051/Battery-Heating-Classification",
-      report: "https://drive.google.com/file/d/1YzDWd1jp59skvYZpk0yKQdlw2J5YAkSj/view?usp=sharing"
     }
   ];
 
@@ -93,7 +118,7 @@ export const ProjectsSection = () => {
     <section id="projects" className="py-20 relative">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-2xl md:text-3xl font-heading font-bold text-[#1e3a8a] mb-4">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-slate-600 dark:text-slate-300 mb-4">
             Projects
           </h2>
           <div className="w-24 h-1 bg-gradient-primary mx-auto" />
@@ -112,26 +137,31 @@ export const ProjectsSection = () => {
               return (
                 <Card
                   key={project.id}
-                  className="cyber-card group relative overflow-hidden px-6 py-6"
-                  onMouseEnter={() => setHoveredProject(project.id)}
-                  onMouseLeave={() => setHoveredProject(null)}
+                  className="professional-card group relative overflow-hidden px-6 py-6"
                   style={{ animationDelay: `${index * 0.08}s` }}
                 >
                   <div className="relative z-10 flex flex-col text-left">
                     <div className="flex items-start justify-between mb-3">
                       <div>
-                        <h3 className="font-cyber font-bold text-xl text-foreground">
-                          {project.title}
-                        </h3>
-                        <Badge variant="outline" className="mt-1 text-xs">
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-heading font-bold text-xl text-foreground">
+                            {project.title}
+                          </h3>
+                          {project.featured && (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-500 border border-emerald-500/30">
+                              Featured
+                            </span>
+                          )}
+                        </div>
+                        <span className={`inline-block mt-1.5 text-xs font-medium ${project.color}`}>
                           {project.category}
-                        </Badge>
+                        </span>
                       </div>
 
                       <div className="flex items-center space-x-2">
                         <div
                           className={`w-2 h-2 rounded-full ${
-                            project.status === "Completed" ? "bg-neon-green" : "bg-neon-orange"
+                            project.status === "Completed" ? "bg-green-500" : "bg-amber-500"
                           }`}
                         />
                         <span className="text-xs font-mono text-muted-foreground">
@@ -166,27 +196,16 @@ export const ProjectsSection = () => {
                         Code
                       </Button>
 
-                      {secondaryLink ? (
-                        <Button
-                          size="sm"
-                          className="flex-1 cyber-btn"
-                          onClick={() => openLink(secondaryLink)}
-                        >
-                          {secondaryLabel}
-                        </Button>
-                      ) : (
-                        <Button size="sm" className="flex-1 cyber-btn" disabled>
-                          No Demo/Report
-                        </Button>
-                      )}
+                      <Button
+                        size="sm"
+                        className="flex-1"
+                        onClick={() => openLink(secondaryLink ?? project.github)}
+                      >
+                        {secondaryLabel ?? "Demo"}
+                      </Button>
                     </div>
                   </div>
 
-                  {hoveredProject === project.id && (
-                    <div className="absolute inset-0 bg-gradient-cyber opacity-10 animate-pulse" />
-                  )}
-
-                  <div className="absolute top-0 right-0 w-0 h-0 border-l-[18px] border-l-transparent border-t-[18px] border-t-neon-cyan opacity-20" />
                 </Card>
               );
             })}

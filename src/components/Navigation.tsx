@@ -95,7 +95,7 @@ export const Navigation = () => {
                 <button
                   key={item.href}
                   onClick={() => scrollToSection(item.href)}
-                  className={`text-left py-2 font-cyber uppercase tracking-wider text-sm ${
+                  className={`text-left py-2 font-medium text-sm ${
                     isScrolled ? "text-black dark:text-white" : ""
                   }`}
                   style={!isScrolled ? { color: "whitesmoke" } : {}}
@@ -103,6 +103,9 @@ export const Navigation = () => {
                   {item.label}
                 </button>
               ))}
+              <div className="pt-2">
+                <ThemeToggle />
+              </div>
             </div>
           </div>
         )}
