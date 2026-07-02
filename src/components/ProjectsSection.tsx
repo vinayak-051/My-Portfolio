@@ -37,7 +37,7 @@ export const ProjectsSection = () => {
       id: "sahayatri",
       title: "Sahayatri",
       highlights: [
-        "Built a serverless travel marketplace with React + Supabase, enforcing per-user data isolation through PostgreSQL Row Level Security policies across guides, bookings, and messages.",
+        "Built a  travel marketplace with React + Supabase, enforcing per-user data isolation through PostgreSQL Row Level Security policies across guides, bookings, and messages.",
         "Implemented real-time tourist–guide chat via Supabase Realtime, alongside a full booking system, review system, buddy trip planning, and Google OAuth authentication.",
         "Achieved end-to-end test coverage with Vitest unit tests, ESLint linting, and Playwright E2E tests against a seeded database of 8 guides across 8 Indian cities."
       ],
