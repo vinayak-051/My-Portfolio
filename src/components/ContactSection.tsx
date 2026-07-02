@@ -81,7 +81,7 @@ export const ContactSection = () => {
   ];
 
   const openResume = () => {
-    window.open(`${import.meta.env.BASE_URL}Vinayak_Resume_.pdf`, "_blank", "noopener,noreferrer");
+    window.open(`${import.meta.env.BASE_URL}Vinayak_Resume.pdf`, "_blank", "noopener,noreferrer");
   };
 
   return (
